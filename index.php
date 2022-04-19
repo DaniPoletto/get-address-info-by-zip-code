@@ -16,7 +16,10 @@
 
 </html>
 <script src="js/jquery-3.6.0.min.js"></script>
+<script src="js/jquery.mask.js"></script>
 <script>
+    $('#cep').mask('00000-000');
+
     function BuscaCEP() {
         //Nova variável "cep" somente com dígitos.
         var cep = $("#cep").val().replace(/\D/g, '');
