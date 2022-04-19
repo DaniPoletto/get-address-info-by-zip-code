@@ -2,65 +2,50 @@
 
 <head>
     <title></title>
+    <link href="css/sweetalert.css" rel="stylesheet">
+    <script src="js/sweetalert.min.js"></script>
 </head>
 
 <body>
-
-    <label for="cep">CEP</label>
-    <input type="text" id="cep">
-    <button onclick="BuscaCEP()">Pesquisar</button>
     <div>
-        <span id="info"></span>
+        <div class="row">
+            <div class="form-group col-md-12">
+                <label class="control-label">CEP</label>
+                <input type="tel" required="required" class="form-control" id="cep" name="cep" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label class="control-label">Endereço</label>
+                <input type="text" required="required" class="form-control" id="rua" name="rua" />
+            </div>
+            <div class="form-group col-md-2">
+                <label class="control-label">Nº</label>
+                <input type="text" required="required" class="form-control" id="numero" name="numero" maxlength="4" />
+            </div>
+            <div class="form-group col-md-4">
+                <label class="control-label">Bairro</label>
+                <input type="text" required="required" class="form-control" id="bairro" name="bairro" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label class="control-label">Cidade</label>
+                <input type="text" required="required" class="form-control" id="cidade" name="cidade" />
+            </div>
+            <div class="form-group col-md-1">
+                <label class="control-label">Estado</label>
+                <input type="text" required="required" class="form-control" id="estado" name="estado" />
+            </div>
+            <div class="form-group col-md-5">
+                <label class="control-label">Complemento</label>
+                <input type="text" class="form-control" id="complemento" name="complemento" />
+            </div>
+        </div>
     </div>
 </body>
 
 </html>
 <script src="js/jquery-3.6.0.min.js"></script>
 <script src="js/jquery.mask.js"></script>
-<script>
-    $('#cep').mask('00000-000');
-
-    function BuscaCEP() {
-        //Nova variável "cep" somente com dígitos.
-        var cep = $("#cep").val().replace(/\D/g, '');
-
-        //Verifica se campo cep possui valor informado.
-        if (cep != "") {
-
-            //Expressão regular para validar o CEP.
-            var validacep = /^[0-9]{8}$/;
-
-            //Valida o formato do CEP.
-            if (validacep.test(cep)) {
-
-                //Consulta o webservice viacep.com.br/
-                $.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?", function(dados) {
-
-                    if (!("erro" in dados)) {
-                        $("#info").text(
-                            dados.logradouro + " , " +
-                            dados.bairro + " , " +
-                            dados.localidade + " , " +
-                            dados.uf
-                        );
-                    } else {
-                        //CEP pesquisado não foi encontrado.
-                        $("#info").text(
-                            "CEP não encontrado!"
-                        );
-                    }
-                });
-            } else {
-                //cep é inválido.
-                $("#info").text(
-                    "CEP com formato inválido!"
-                );
-            }
-        } else {
-            //cep sem valor, limpa formulário.
-            $("#info").text(
-                "Digite o CEP, por favor!"
-            );
-        }
-    }
-</script>
+<script src="js/get-address-info-by-zip-code.js"></script>
